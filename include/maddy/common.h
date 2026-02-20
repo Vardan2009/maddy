@@ -14,20 +14,11 @@ inline std::string escapeHTML(const std::string& input)
   {
     switch (c)
     {
-      case '&':
-        result += "&amp;";
-        break;
       case '<':
         result += "&lt;";
         break;
       case '>':
         result += "&gt;";
-        break;
-      case '"':
-        result += "&quot;";
-        break;
-      case '\'':
-        result += "&apos;";
         break;
       default:
         result += c;
