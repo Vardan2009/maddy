@@ -9,6 +9,7 @@
 #include <regex>
 #include <string>
 
+#include "maddy/common.h"
 #include "maddy/lineparser.h"
 
 // -----------------------------------------------------------------------------
@@ -44,7 +45,7 @@ public:
     if (std::regex_search(line, match, re))
     {
       std::string replacement =
-        "<code>" + escapeHTML(match[1].str()) + "</code>";
+        "<code>" + common::escapeHTML(match[1].str()) + "</code>";
 
       line = match.prefix().str() + replacement + match.suffix().str();
     }
