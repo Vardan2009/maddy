@@ -41,14 +41,22 @@ public:
   {
     static std::regex re("`([^`]*)`");
     std::smatch match;
+    std::string result;
 
-    if (std::regex_search(line, match, re))
+    auto searchStart = line.cbegin();
+
+    while (std::regex_search(searchStart, line.cend(), match, re))
     {
-      std::string replacement =
-        "<code>" + common::escapeHTML(match[1].str()) + "</code>";
+      result.append(match.prefix());
 
-      line = match.prefix().str() + replacement + match.suffix().str();
+      result += "<code>" + common::escapeHTML(match[1].str()) + "</code>";
+
+      searchStart = match.suffix().first;
     }
+
+    result.append(searchStart, line.cend());
+
+    line = std::move(result);
   }
 }; // class InlineCodeParser
 
