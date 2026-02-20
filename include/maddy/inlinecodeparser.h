@@ -39,9 +39,15 @@ public:
   void Parse(std::string& line) override
   {
     static std::regex re("`([^`]*)`");
-    static std::string replacement = "<code>$1</code>";
+    std::smatch match;
 
-    line = std::regex_replace(line, re, replacement);
+    if (std::regex_search(line, match, re))
+    {
+      std::string replacement =
+        "<code>" + escapeHTML(match[1].str()) + "</code>";
+
+      line = match.prefix().str() + replacement + match.suffix().str();
+    }
   }
 }; // class InlineCodeParser
 

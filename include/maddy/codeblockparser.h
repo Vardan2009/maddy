@@ -119,6 +119,8 @@ protected:
       return;
     }
 
+    line = escapeHTML(line);
+
     line += "\n";
   }
 
